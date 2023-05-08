@@ -8,6 +8,10 @@ int YELLOWTWO = 6;
 int GREENONE = 4;
 int GREENTWO = 7;
 
+int BUTTONPIN = 8;
+
+int buttonState = 0;
+
 void OneOn()
 {
   digitalWrite(YELLOWONE, HIGH);
@@ -50,12 +54,25 @@ void setup()
   pinMode(YELLOWTWO, OUTPUT);
   pinMode(GREENONE, OUTPUT);
   pinMode(GREENTWO, OUTPUT);
+  
+  pinMode(BUTTONPIN, INPUT);
 }
 
 void loop()
 {
-  OneOn();
-  delay(5000);
-  TwoOn();
-  delay(5000);
+  buttonState = digitalRead(BUTTONPIN);
+  
+  printf("hei");
+  
+  if (buttonState = HIGH)
+  {
+    delay(5000);
+  }
+  else
+  {
+    OneOn();
+    delay(5000);
+    TwoOn();
+    delay(5000); 
+  }
 }
