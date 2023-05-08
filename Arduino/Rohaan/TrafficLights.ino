@@ -46,6 +46,20 @@ void TwoOn()
   digitalWrite(GREENONE, HIGH);
 }
   
+void WalkingPerson()
+{
+  digitalWrite(YELLOWTWO, HIGH);
+  digitalWrite(YELLOWONE, HIGH);
+  delay(500);
+  digitalWrite(GREENTWO, LOW);
+  digitalWrite(GREENONE, LOW);
+  delay(500);
+  digitalWrite(YELLOWTWO, LOW);
+  digitalWrite(YELLOWONE, LOW);
+  digitalWrite(REDTWO, HIGH);
+  digitalWrite(REDONE, HIGH);
+}
+
 void setup()
 {
   pinMode(REDONE, OUTPUT);
@@ -56,16 +70,16 @@ void setup()
   pinMode(GREENTWO, OUTPUT);
   
   pinMode(BUTTONPIN, INPUT);
+  Serial.begin(9600);
 }
 
 void loop()
 {
   buttonState = digitalRead(BUTTONPIN);
   
-  printf("hei");
-  
-  if (buttonState = HIGH)
+  if (buttonState == HIGH)
   {
+    WalkingPerson();
     delay(5000);
   }
   else
