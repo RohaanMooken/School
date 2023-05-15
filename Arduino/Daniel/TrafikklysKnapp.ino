@@ -7,7 +7,11 @@ int red2 = 13;
 int yellow2 = 12; 
 int green2 = 11; 
 
-int buttonpin = 8;
+// walk button
+int walkgreen = 6;
+int walkred = 5;
+
+int buttonpin = 7;
 int buttonState = 0;
 
 void setup() { 
@@ -49,6 +53,7 @@ void changeLights() {
 }
 
 void walkingPerson() {
+	digitalWrite(walkgreen, HIGH);
 	digitalWrite(yellow2, HIGH);
 	digitalWrite(yellow1, HIGH);
 	delay(500);
@@ -57,6 +62,7 @@ void walkingPerson() {
 	delay(500);
 	digitalWrite(yellow2, LOW);
 	digitalWrite(yellow1, LOW);
+	digitalWrite(walkred, LOW);
 	digitalWrite(red2, HIGH);
 	digitalWrite(red1, HIGH);
 }
