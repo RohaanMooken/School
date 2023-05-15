@@ -1,4 +1,5 @@
-// light one int red1 = 10; 
+// light one 
+int red1 = 10; 
 int yellow1 = 9; 
 int green1 = 8; 
 // light two 
@@ -6,7 +7,7 @@ int red2 = 13;
 int yellow2 = 12; 
 int green2 = 11; 
 void setup() { 
-// light one 
+	// light one 
 	pinMode(red1, OUTPUT); 
 	pinMode(yellow1, OUTPUT); 
 	pinMode(green1, OUTPUT); 
