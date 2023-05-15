@@ -68,7 +68,7 @@ void walkingPerson() {
 }
 
 void loop() { 
-	buttonState = digialRead(buttonState);
+	buttonState = digitalRead(buttonState);
 	
 	if (buttonState == HIGH) {
 		walkingPerson();
