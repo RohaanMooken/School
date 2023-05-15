@@ -14,34 +14,38 @@ int buttonState = 0;
 
 void OneOn()
 {
+  // Turn to red
   digitalWrite(YELLOWONE, HIGH);
-  delay(500);
   digitalWrite(GREENONE, LOW);
-  delay(500);
+  delay(1500);
   digitalWrite(YELLOWONE, LOW);
   digitalWrite(REDONE, HIGH);
 
+  delay(2000);
+
+  // Turn to green
   digitalWrite(YELLOWTWO, HIGH);
-  delay(500);
+  delay(1500);
   digitalWrite(REDTWO, LOW);
-  delay(500);
   digitalWrite(YELLOWTWO, LOW);
   digitalWrite(GREENTWO, HIGH);
 }
 
 void TwoOn()
 {
+  // Turn to red
   digitalWrite(YELLOWTWO, HIGH);
-  delay(500);
   digitalWrite(GREENTWO, LOW);
-  delay(500);
+  delay(1500);
   digitalWrite(YELLOWTWO, LOW);
   digitalWrite(REDTWO, HIGH);
 
+  delay(2000);
+
+  // Turn to green
   digitalWrite(YELLOWONE, HIGH);
-  delay(500);
+  delay(1500);
   digitalWrite(REDONE, LOW);
-  delay(500);
   digitalWrite(YELLOWONE, LOW);
   digitalWrite(GREENONE, HIGH);
 }
@@ -85,8 +89,8 @@ void loop()
   else
   {
     OneOn();
-    delay(5000);
+    delay(10000);
     TwoOn();
-    delay(5000); 
+    delay(10000); 
   }
 }
