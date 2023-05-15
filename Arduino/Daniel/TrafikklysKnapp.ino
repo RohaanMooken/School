@@ -48,24 +48,24 @@ void changeLights() {
 	delay(5000); 
 }
 
-void WalkingPerson() {
-  digitalWrite(YELLOWTWO, HIGH);
-  digitalWrite(YELLOWONE, HIGH);
-  delay(500);
-  digitalWrite(GREENTWO, LOW);
-  digitalWrite(GREENONE, LOW);
-  delay(500);
-  digitalWrite(YELLOWTWO, LOW);
-  digitalWrite(YELLOWONE, LOW);
-  digitalWrite(REDTWO, HIGH);
-  digitalWrite(REDONE, HIGH);
+void walkingPerson() {
+	digitalWrite(yellow2, HIGH);
+	digitalWrite(yellow1, HIGH);
+	delay(500);
+	digitalWrite(green2, LOW);
+	digitalWrite(green1, LOW);
+	delay(500);
+	digitalWrite(yellow2, LOW);
+	digitalWrite(yellow1, LOW);
+	digitalWrite(red2, HIGH);
+	digitalWrite(red1, HIGH);
 }
 
 void loop() { 
 	buttonState = digialRead(buttonState);
 	
 	if (buttonState == HIGH) {
-		WalkingPerson();
+		walkingPerson();
 		delay(5000);
 	}
 	else
