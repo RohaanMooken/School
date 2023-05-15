@@ -6,6 +6,7 @@ int green1 = 8;
 int red2 = 13; 
 int yellow2 = 12; 
 int green2 = 11; 
+
 void setup() { 
 	// light one 
 	pinMode(red1, OUTPUT); 
