@@ -1,6 +1,3 @@
-// C++ code
-//
-
 int REDONE = 2;
 int REDTWO = 5;
 int YELLOWONE = 3;
@@ -62,6 +59,7 @@ void WalkingPerson()
   digitalWrite(YELLOWONE, LOW);
   digitalWrite(REDTWO, HIGH);
   digitalWrite(REDONE, HIGH);
+  delay(1000);
 }
 
 void setup()
