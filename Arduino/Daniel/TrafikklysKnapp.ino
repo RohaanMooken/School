@@ -7,6 +7,9 @@ int red2 = 13;
 int yellow2 = 12; 
 int green2 = 11; 
 
+int buttonpin = 8;
+int buttonState = 0;
+
 void setup() { 
 	// light one 
 	pinMode(red1, OUTPUT); 
@@ -16,11 +19,6 @@ void setup() {
 	pinMode(red2, OUTPUT); 
 	pinMode(yellow2, OUTPUT); 
 	pinMode(green2, OUTPUT); 
-}
-
-void loop() { 
-	changeLights(); 
-	delay(15000); 
 }
 
 void changeLights() { 
@@ -49,3 +47,32 @@ void changeLights() {
 	digitalWrite(red2, HIGH); 
 	delay(5000); 
 }
+
+void WalkingPerson() {
+  digitalWrite(YELLOWTWO, HIGH);
+  digitalWrite(YELLOWONE, HIGH);
+  delay(500);
+  digitalWrite(GREENTWO, LOW);
+  digitalWrite(GREENONE, LOW);
+  delay(500);
+  digitalWrite(YELLOWTWO, LOW);
+  digitalWrite(YELLOWONE, LOW);
+  digitalWrite(REDTWO, HIGH);
+  digitalWrite(REDONE, HIGH);
+}
+
+void loop() { 
+	buttonState = digialRead(buttonState);
+	
+	if (buttonState == HIGH) {
+		WalkingPerson();
+		delay(5000);
+	}
+	else
+	{
+		changeLights();
+		delay(15000); 
+	}
+}
+
+
