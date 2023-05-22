@@ -65,7 +65,7 @@ void WalkingPerson()
   digitalWrite(REDTWO, HIGH);
   digitalWrite(REDONE, HIGH);
   Serial.print("hi");
-  delay(5000);
+  delay(15000);
 }
 
 void setup()
