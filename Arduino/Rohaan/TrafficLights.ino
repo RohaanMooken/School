@@ -1,13 +1,18 @@
-int REDONE = 2;
-int REDTWO = 5;
-int YELLOWONE = 3;
-int YELLOWTWO = 6;
-int GREENONE = 4;
-int GREENTWO = 7;
+const int REDONE = 8;
+const int REDTWO = 5;
+const int YELLOWONE = 3;
+const int YELLOWTWO = 6;
+const int GREENONE = 4;
+const int GREENTWO = 7;
 
-int BUTTONPIN = 8;
+const int BUTTONPIN = 2;
 
 int buttonState = 0;
+
+void ButtonCheck()
+{
+  buttonState = HIGH;
+}
 
 void OneOn()
 {
@@ -46,7 +51,7 @@ void TwoOn()
   digitalWrite(YELLOWONE, LOW);
   digitalWrite(GREENONE, HIGH);
 }
-  
+
 void WalkingPerson()
 {
   digitalWrite(YELLOWTWO, HIGH);
@@ -59,7 +64,8 @@ void WalkingPerson()
   digitalWrite(YELLOWONE, LOW);
   digitalWrite(REDTWO, HIGH);
   digitalWrite(REDONE, HIGH);
-  delay(1000);
+  Serial.print("hi");
+  delay(5000);
 }
 
 void setup()
@@ -72,23 +78,22 @@ void setup()
   pinMode(GREENTWO, OUTPUT);
   
   pinMode(BUTTONPIN, INPUT);
+  attachInterrupt(digitalPinToInterrupt(BUTTONPIN), ButtonCheck, RISING);
   Serial.begin(9600);
 }
 
 void loop()
 {
-  buttonState = digitalRead(BUTTONPIN);
-  
   if (buttonState == HIGH)
   {
     WalkingPerson();
-    delay(5000);
+    buttonState = LOW;  // Reset buttonState after executing the WalkingPerson function
   }
   else
   {
     OneOn();
-    delay(10000);
+    delay(5000);
     TwoOn();
-    delay(10000); 
+    delay(5000);
   }
 }
