@@ -21,6 +21,9 @@ v.append(None)
 a.append(None)
 a.append(None)
 
+data["fart"] = v
+data["akselerasjon"] = a
+
 plt.subplot(3,1,1)
 plt.ylabel("Posisjon (m)")
 plt.plot(t, p, color = "limegreen")
