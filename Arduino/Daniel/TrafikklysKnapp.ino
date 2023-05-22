@@ -13,12 +13,14 @@ int walkred = 5;
 
 int buttonPin = 7;
 int buttonState = 0;
-volatile boolean buttonPressed = false;
 
+void ButtonCheck()
+{
+  buttonState = HIGH;
+}
 
 void setup() { 
   	pinMode(buttonPin, INPUT);
-  	attachInterrupt(digitalPinToInterrupt(buttonPin), handleButtonPress, CHANGE);
   	Serial.begin(9600);
 	// light one 
 	pinMode(red1, OUTPUT); 
@@ -31,10 +33,11 @@ void setup() {
   	// walk light
   	pinMode(walkgreen, OUTPUT);
   	pinMode(walkred, OUTPUT);
+  	
+  	attachInterrupt(digitalPinToInterrupt(buttonPin), ButtonCheck, RISING);
 }
 
-void changeLights() {
-  	Serial.print("grønn biler kjører");
+void changeLights() { 
 	// turn both yellows on 
 	digitalWrite(green1, LOW); 
 	digitalWrite(yellow1, HIGH); 
@@ -61,12 +64,7 @@ void changeLights() {
 	delay(5000); 
 }
 
-void handleButtonPress() {
-  buttonPressed = true;
-}
-
 void walkingPerson() {
-  	Serial.print("går");
 	digitalWrite(walkgreen, HIGH);
 	digitalWrite(yellow2, HIGH);
 	digitalWrite(yellow1, HIGH);
@@ -81,21 +79,16 @@ void walkingPerson() {
 	digitalWrite(red1, HIGH);
 }
 
-void loop() {
-  if (buttonPressed) {
-    buttonPressed = false; // Reset the flag
-
-    if (digitalRead(buttonPin) == HIGH) {
-      walkingPerson();
-      delay(5000);
-      Serial.print("Grønn mann \n");
-    } else {
-      changeLights();
-      delay(15000);
-      Serial.print("Rød mann, alt går normalt \n");
-    }
+void loop()
+{
+  if (buttonState == HIGH)
+  {
+    walkingPerson();
+    buttonState = LOW;  // Reset buttonState after executing the WalkingPerson function
   }
-  // Other loop code
+  else
+  {
+    changeLights();
+  }
 }
-
 
