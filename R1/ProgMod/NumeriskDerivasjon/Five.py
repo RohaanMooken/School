@@ -18,4 +18,4 @@ plt.plot(t, f(t), label="f")
 plt.legend()
 plt.show()
 
-print(t[41])
+print(f(t[41]))
