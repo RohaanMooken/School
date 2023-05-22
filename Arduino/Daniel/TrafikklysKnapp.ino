@@ -73,11 +73,13 @@ void loop() {
 	if (buttonState == HIGH) {
 		walkingPerson();
 		delay(5000);
+		Serial.print("Grønn mann");
 	}
 	else
 	{
 		changeLights();
 		delay(15000); 
+		Serial.print("Rød mann, alt går normalt");
 	}
 }
 
