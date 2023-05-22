@@ -2,13 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def T(t):
-    return 70*np.e**-0.065*t
+    return ((70*np.e)**(-0.065*t))
 
-def newton(f, df, x0, tol=1e-6):
-    if abs(f(x0)) < tol:
-        return x0
-    else:
-        return newton(f, df, x0 - f(x0)/df(x0), tol)
+def derivative(f, x, dx = 1e-8):
+    return (f(x+dx)-f(x))/dx
+
+def f(x):
+    return derivative(T, x)
 
 t = np.linspace(0, 60, 1000)
 
+plt.plot(t, T(t), label="T")
+plt.plot(t, f(t), label="f")
+
+plt.legend()
+plt.show()
+
+print(t[41])
