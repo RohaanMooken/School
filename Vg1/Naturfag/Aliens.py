@@ -26,6 +26,6 @@ for i in range(forsøk):
             z += 1
             y = 1
             break
-
-print(c/forsøk)
-print(z/forsøk)
+        
+print(f"Survial probability: {round(z/forsøk, 3)*100} %")
+print(f"Number of generations: {round(c/forsøk, 1)}")
