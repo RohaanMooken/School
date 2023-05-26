@@ -1,4 +1,4 @@
-n = int(input("Klosse: "))
+n = int(input("Klosser: "))
 a = 0
 m = 1
 
