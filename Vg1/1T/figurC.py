@@ -1,3 +1,6 @@
+# NOT DONE!!
+# DO NOT USE
+
 klosser = int(input("N = "))
 figur_sum = 0 
 sum = 0
