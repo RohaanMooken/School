@@ -2,7 +2,7 @@ from random import randint
 
 y = 1
 forsøk = 100000
-z = 0
+overlevende = 0
 nummer_av_generasjoner = 0
 populasjon_cap = 50
 
@@ -23,9 +23,9 @@ for i in range(forsøk):
             break
         if y >= populasjon_cap:
             nummer_av_generasjoner += j
-            z += 1
+            overlevende += 1
             y = 1
             break
         
-print(f"Survial probability: {round(z/forsøk, 3)*100} %")
+print(f"Survial probability: {round(overlevende/forsøk, 3)*100} %")
 print(f"Number of generations: {round(nummer_av_generasjoner/forsøk, 1)}")
