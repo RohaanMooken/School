@@ -19,5 +19,5 @@ def tilnærmet_areal(f, x_min, x_max, n):
     return totalt_areal
 
 areal = tilnærmet_areal(f, x_min, x_max, n)
-#print("Tilnærmet areal:", round(areal, 3), "cm^2")
-print("Tilnærmet areal:", areal, "cm^2")
+#print("\nTilnærmet areal:", round(areal, 3), "cm^2")
+print("\nTilnærmet areal:", areal, "cm^2")
