@@ -1,0 +1,3 @@
+Harry Hare skal hoppe opp ei trapp med ti trinn. 
+Han kan bare hoppe ett eller to trinn i hvert hopp. 
+Han hopper aldri ned. På hvor mange ulike måter kan Harry Hare komme seg opp trappa? 
