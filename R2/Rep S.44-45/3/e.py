@@ -8,4 +8,4 @@ for i in range(1000):
     sum += radioer
     radioer += 30
 
-print(f"De har produsert 10000 radioer etter {i - 1} måneder")
+print(f"De har produsert 10000 radioer etter {i} måneder")
