@@ -6,4 +6,4 @@ for i in range(12):
     sum += radioer
     radioer += 30
 
-print(f"2021: {sum}, solgte radioer")
+print(f"{2021}: {sum}, solgte radioer")
