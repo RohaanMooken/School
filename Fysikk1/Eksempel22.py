@@ -21,4 +21,8 @@ while s < s_slutt:
     v_verdier.append(v)
 
 plt.plot(s_verdier, v_verdier)
+plt.title("Fart som funksjon av posisjon")
+plt.xlabel("Strekning")
+plt.ylabel("Fart")
+plt.grid()
 plt.show()
