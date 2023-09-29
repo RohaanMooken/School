@@ -1,5 +1,5 @@
 def f(x): 
-    return 3*x - 6 
+    return x**3 + 2*x**2 + 3*x - 6
 
 svar = input("Velg verdi for a: ") 
 a = float(svar) 
