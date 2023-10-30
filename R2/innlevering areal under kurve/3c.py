@@ -4,8 +4,9 @@ a = -2
 b = 2
 n = 100
 dx = (b - a) / n
+z = 1
 
-x = a
+x = a + (z - 1 / 2) * dx
 sum = 0
 
 def f(x):
@@ -13,6 +14,7 @@ def f(x):
 
 while x < b:
     sum += f(x) * dx
-    x += dx
+    x = a + (z - 1/2) * dx
+    z += 1
 
 print(sum)
