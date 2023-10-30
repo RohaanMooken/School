@@ -5,12 +5,12 @@ x_min = 0
 x_maks = 6
 n = 6000
 sum = 0
-i = 0
+x = 0
 
 bredde = (x_maks - x_min) / n
 
-for j in range(n):
-    sum += bredde * f(i)
-    i += bredde
+for i in range(n):
+    sum += bredde * f(x)
+    x += bredde
 
 print(f"Areal: {sum}")
