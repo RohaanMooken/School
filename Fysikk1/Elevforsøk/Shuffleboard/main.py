@@ -9,6 +9,7 @@ def a(s, t, v0):
 forsøk = []
 
 masse = 0.314
+# masse = 100
 
 usikkerhet_masse = 0.01  # Eksempel på usikkerhet i masse
 usikkerhet_strekning = 0.01  # Eksempel på usikkerhet i strekning
@@ -16,7 +17,7 @@ usikkerhet_tid = 0.4  # Eksempel på usikkerhet i tid
 
 tid_liste = [2.35, 2.49, 2.40, 2.82, 2.45, 2.02, 2.17, 2.13, 1.60, 2.27]
 strekning_liste = [3.79, 3.40, 3.72, 3.93, 2.22, 2.45, 2.13, 3.41, 2.14, 2.93]
-
+my_liste = []
 
 for i in range(10):
     tid = tid_liste[i]
@@ -33,6 +34,8 @@ for i in range(10):
 
     # Beregner friksjonskoeffisient (my = R/N, antar N er konstant)
     friksjonskoeffisient = kraft / (9.81 * masse)
+    
+    my_liste.append(friksjonskoeffisient)
 
     # Beregner usikkerhet i kraft (ΔR = m*a*sqrt((Δm/m)^2 + (Δa/a)^2))
     usikkerhet_kraft = kraft * math.sqrt((usikkerhet_masse/masse)**2 + (2*usikkerhet_tid/tid)**2)
@@ -52,3 +55,14 @@ def tabell(experiments):
 
 # Simulerer eksperimenter og skriver ut tabellen
 tabell(forsøk)
+
+
+# Fjern den største og den minste verdien
+my_liste.remove(max(my_liste))
+my_liste.remove(min(my_liste))
+
+# Finner gjennomsnittet av my etter fjerning av ekstreme verdier
+gjennomsnitt_my = sum(my_liste) / len(my_liste)
+
+# Printer ut gjennomsnittet
+print("\n\n",gjennomsnitt_my)
