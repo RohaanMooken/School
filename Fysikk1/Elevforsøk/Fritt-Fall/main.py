@@ -1,11 +1,28 @@
-import pandas as pd 
+import pandas as pd
+import matplotlib.pyplot as plt
 
-import matplotlib.pyplot as plt 
+df = pd.read_csv('frittfall.csv', sep=';', comment='#', decimal='.')
 
-df = pd.read_csv('frittfall.csv', sep=';', comment='#', decimal='.') 
+tid = df['Tid'].tolist()
+posisjon = df['Posisjon'].tolist()
+fart = df['Fart'].tolist()
 
-tid = df['Tid'].tolist() 
+g = 9.8 
 
-fart = df['Fart'].tolist() 
+masse = 1.0
+potensiell_energi = [masse * g * h for h in posisjon]
+kinetisk_energi = [(1/2) * masse * v**2 for v in fart]
+mekanisk_energi = [pot + kin for pot, kin in zip(potensiell_energi, kinetisk_energi)]
 
-posisjon=df['Posisjon'].tolist() 
+plt.figure(figsize=(10, 6))
+
+plt.plot(tid, potensiell_energi, label='Potensiell energi')
+plt.plot(tid, kinetisk_energi, label='Kinetisk energi')
+plt.plot(tid, mekanisk_energi, label='Mekanisk energi')
+
+plt.xlabel('Tid (s)')
+plt.ylabel('Energi (Joule)')
+plt.title('Energi vs. Tid')
+plt.legend()
+plt.grid(True)
+plt.show()
