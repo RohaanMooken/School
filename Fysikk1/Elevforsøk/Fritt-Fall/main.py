@@ -9,10 +9,10 @@ fart = df['Fart'].tolist()
 
 g = 9.8 
 
-masse = 1.0
-potensiell_energi = [masse * g * h for h in posisjon]
+masse = 0.5
+potensiell_energi = [masse * g * i for i in posisjon]
 kinetisk_energi = [(1/2) * masse * v**2 for v in fart]
-mekanisk_energi = [pot + kin for pot, kin in zip(potensiell_energi, kinetisk_energi)]
+mekanisk_energi = [potensiell + kinetisk for potensiell, kinetisk in zip(potensiell_energi, kinetisk_energi)]
 
 plt.figure(figsize=(10, 6))
 
@@ -23,6 +23,6 @@ plt.plot(tid, mekanisk_energi, label='Mekanisk energi')
 plt.xlabel('Tid (s)')
 plt.ylabel('Energi (Joule)')
 plt.title('Energi vs. Tid')
-plt.legend()
+# plt.legend()
 plt.grid(True)
 plt.show()
