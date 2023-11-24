@@ -21,5 +21,5 @@ for i in range(len(atom1)):
     current_atom2 = atom2[i]
     current_bindingsorden = bindingsorden[i]
 
-    if current_atom1 == a1 and current_atom2 == a2 and current_bindingsorden == orden:
+    if current_atom1 == a1 and current_atom2 == a2 or current_atom1 == a2 and current_atom2 == a1 and current_bindingsorden == orden:
         print("Reaksjonsentalpien er:", reaksjonsentalpi[i], "kJ.")
