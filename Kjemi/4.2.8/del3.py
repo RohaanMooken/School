@@ -14,4 +14,4 @@ with open('bindingsentalpi.txt', 'r') as file:
 
 a1 = input("Første atom: ").strip()
 a2 = input("Andre atom: ").strip()
-orden = input("Bindingsorden: ").strip()
+orden = input("Bindingstype: ").strip()
