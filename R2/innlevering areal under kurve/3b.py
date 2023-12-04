@@ -9,7 +9,6 @@ dx = (b - a) / n
 
 x = a + dx
 sum = 0
-i = 0
 
 def f(x):
     return 3*math.e**(-(x**2)/2)
@@ -17,7 +16,5 @@ def f(x):
 while x < b + dx:
     sum += f(x) * dx
     x += dx
-    print(i)
-    i += 1
 
 print(sum)
