@@ -1,3 +1,5 @@
+# Trapes metoden
+
 import math
 
 a = -2
