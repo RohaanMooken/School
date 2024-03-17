@@ -3,113 +3,79 @@ import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import matplotlib
+from sklearn.linear_model import LinearRegression
 
 plt.rcParams['figure.figsize'] = [14, 8]
 
-## load the data as a csv
-df = pd.read_csv("C:\\Users\\danie\\Github\\School\\R1\\test\\BTC-USD.csv")
+# Load the data from CSV
+# Assuming the CSV has no header, we specify column names directly
+df = pd.read_csv("C:\\Users\\danie\\GitHub\\School\\R1\\test\\btc.csv", header=None, names=['Timestamp', 'Price', 'Volume'])
 
-df.head()
-#need to reverse the data later onddd
-#remove entries where price is 0
+# Convert Timestamp to datetime format (assuming Timestamp is in Unix time)
+df['Date'] = pd.to_datetime(df['Timestamp'], unit='s')
+
+# We'll use 'Price' as 'High' for consistency with your original script
+df['High'] = df['Price']
+
+# Reverse the data order and filter out entries with Price <= 0
 df = df[df["High"] > 0]
 df = df.iloc[::-1]
-#convert Date to date format
-df["Date"] = pd.to_datetime(df["Date"])
+
 print(df.head())
 
-#this is the function we want to fit over our data: a.log(x)+b
-#we need to find appropriate coefficients
+# Define the model function to fit over our data
 def func(x, p1, p2):
-    return p1*np.log(x) + p2
+    return p1 * np.log(x) + p2
 
-
-#we are fitting log of price of BTC against the function, not actual price
+# Prepare data for curve fitting
 ydata = np.log(df["High"])
-xdata = [x+1 for x in range(len(df))] #just use numbers for dates
+xdata = np.array([x+1 for x in range(len(df))])  # Use sequential numbers for x
 
-extended_dates = pd.date_range(df["Date"].iloc[0], "2023-01-01")
-
-#extract optimal coefficients using curve fit
+# Extract optimal coefficients using curve fit
 popt, pcov = curve_fit(func, xdata, ydata, p0=(3.0, -10))
-#try to get ydata from xdata and function
-#popt has coefficients, pcov has covariances between them
 print(popt)
 
-#generate fitted Y data
-fittedYdata = func(np.array([x+1 for x in range(len(df))]), popt[0], popt[1])#pass values to function
-fittedYdataExtended = func(np.array([x+1 for x in range(len(extended_dates))]), popt[0], popt[1])
+# Generate fitted Y data
+fittedYdata = func(xdata, *popt)
 
+# Plotting
 plt.style.use("dark_background")
+
 fig, ax = plt.subplots()
-ax.semilogy(df["Date"], df["High"])
-ax.yaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter())
-
-# Configure minor ticks
-ax.yaxis.set_minor_locator(ticker.LogLocator(base=10.0, subs=[1.0]))
-
-plt.title("BTC log chart")
+ax.semilogy(df["Date"], df["High"].values)  # Original data
+plt.plot(df["Date"], np.exp(fittedYdata), label="Fitted curve")  # Fitted curve
+ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
+plt.title("BTC Price Logarithmic Fit")
 plt.ylabel("Price in USD")
+plt.legend()
 plt.show()
 
-plt.style.use("dark_background")
-fig, ax = plt.subplots()
-ax.semilogy(df["Date"], df["High"])
-plt.yscale('log', subsy=[1])
-ax.yaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter())
-ax.yaxis.set_minor_formatter(matplotlib.ticker.ScalarFormatter())
-plt.plot(df["Date"], np.exp(fittedYdata))
-
-plt.title("BTC logarithmic regression")
-plt.ylabel("Price in USD")
-plt.ylim(bottom=0.1)
-plt.show()
-
-
-
-#####################
-from sklearn.linear_model import LinearRegression
-def get_furthest_x(y, line):
-    #y is all the log of values 
-    # line is the linear regression line
-    difference = [abs(y[x] - line[x]) for x in range(len(line))]
-    max_difference = max(difference)
-    return difference.index(max_difference)
-
+# Regression analysis part
 df["ind"] = [x+1 for x in range(len(df))]
-#df = df[df.Date >= "2010-09-16"]
+
 def perform_regression(df):
-    X = np.array(np.log(df.ind)).reshape(-1,1) #makes it a list of lists incase we had multiple linear regression
-    y = np.array(np.log(df.Value))
-
-    #now X and y are how they look on a log-log chart
-    reg = LinearRegression().fit(X,y)
-
-    #remember plt plots on a linear axis and our X and y have been "logged"
-    #plt.plot((X), (reg.predict(X))) #plot the X and predicted y as per X
+    X = np.log(df["ind"].values).reshape(-1, 1)  # Convert index to numpy array and log
+    y = np.log(df["High"].values)  # Convert price to numpy array and log
+    reg = LinearRegression().fit(X, y)
     line = reg.predict(X)
-    outlier = get_furthest_x(y, line) #index of furthest element from line
-    return outlier
-df2 = df
+    difference = np.abs(y - line)
+    max_difference = np.max(difference)
+    return np.argmax(difference)
+
+df2 = df.copy()
 iterations = int(len(df2)/2)
 print(iterations)
-for i in range(0,iterations):
+
+for i in range(iterations):
     outlier = perform_regression(df2)
-    #outlier is the xth index from beginning, we need to drop it
-    df2=df2.drop(df2.index[outlier])
-    
-#now we have df2, perform linear regression and get the line for it
-X = np.array(np.log(df2.ind)).reshape(-1,1) #makes it a list of lists incase we had multiple linear regression
-y = np.array(np.log(df2.Value))
+    df2 = df2.drop(df2.index[outlier])
 
-#now X and y are how they look on a log-log chart
-reg = LinearRegression().fit(X,y)
-
-#remember plt plots on a linear axis and our X and y have been "logged"
-#plt.plot((X), (reg.predict(X))) #plot the X and predicted y as per X
+# Perform linear regression on the cleaned dataset
+X = np.log(df2["ind"].values).reshape(-1, 1)
+y = np.log(df2["High"].values)
+reg = LinearRegression().fit(X, y)
 line = reg.predict(X)
-#we want correlation between line and X
 
-r = np.corrcoef(np.log(df2.Value), line)
-print(r)
+# Calculate and print the correlation coefficient
+r = np.corrcoef(y, line)[0, 1]
+print(f"Correlation coefficient: {r}")
