@@ -55,7 +55,7 @@ plt.show()
 
 plt.style.use("dark_background")
 fig, ax = plt.subplots()
-ax.semilogy(df["Date"], df["Closing Price (USD)"])
+ax.semilogy(df["Date"], df["High"])
 plt.yscale('log', subsy=[1])
 ax.yaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter())
 ax.yaxis.set_minor_formatter(matplotlib.ticker.ScalarFormatter())
