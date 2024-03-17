@@ -40,6 +40,49 @@ fittedYdata = func(np.array([x+1 for x in range(len(df))]), popt[0], popt[1])
 # Beregner tilpassede y-verdier for den utvidede dato rekkevidden basert på de optimale parameterne
 fittedYdataExtended = func(np.array([x+1 for x in range(len(extended_dates))]), popt[0], popt[1])
 
+# Definerer en funksjon for å finne x-verdien som er lengst unna en lineær regresjonslinje
+def get_furthest_x(y, line):
+    # y er alle logaritmeverdiene
+    # line er den lineære regresjonslinjen
+    difference = [abs(y[x] - line[x]) for x in range(len(line))] # Beregner absoluttverdien av forskjellen mellom hver y-verdi og linjen
+    max_difference = max(difference) # Finner den største forskjellen
+    return difference.index(max_difference) # Returnerer indeksen for den største forskjellen
+
+# Legger til en kolonne 'ind' i df som representerer sekvensielle tall startende fra 1
+df["ind"] = [x+1 for x in range(len(df))]
+
+# Funksjon for å utføre lineær regresjon
+def perform_regression(df):
+    X = np.array(np.log(df.ind)).reshape(-1,1) # Log-transformerer 'ind' og endrer format for regresjonsanalyse
+    y = np.array(np.log(df.Value)) # Log-transformerer 'Value'
+
+    # X og y representerer nå verdiene slik de ville sett ut på et log-log plott
+    reg = LinearRegression().fit(X, y) # Utfører lineær regresjon
+
+    line = reg.predict(X) # Beregner den predikerte y-verdien basert på X
+    outlier = get_furthest_x(y, line) # Finner indeksen for punktet lengst unna regresjonslinjen
+    return outlier # Returnerer indeksen til outlier
+
+df2 = df
+iterations = int(len(df2)/2) # Beregner antall iterasjoner som halvparten av lengden på df2
+print(iterations)
+
+# Utfører regresjonsanalyse og fjerner outliers iterativt
+for i in range(0, iterations):
+    outlier = perform_regression(df2)
+    df2 = df2.drop(df2.index[outlier]) # Fjerner raden tilhørende outlier
+    
+# Utfører lineær regresjon på den oppdaterte datasetten uten outliers
+X = np.array(np.log(df2.ind)).reshape(-1,1)
+y = np.array(np.log(df2.Value))
+
+reg = LinearRegression().fit(X, y)
+line = reg.predict(X)
+
+# Beregner korrelasjonen mellom line og X
+r = np.corrcoef(np.log(df2.Value), line)
+print(r)
+
 
 plt.style.use("dark_background")
 fig, ax = plt.subplots()
